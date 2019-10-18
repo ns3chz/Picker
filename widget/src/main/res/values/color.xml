@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="file_picker_choose_btn_un_press">#1D7CAA</color>
+    <color name="file_picker_choose_btn_pressed">#42AEDF</color>
+
+    <color name="text_color_def_dark">@color/black</color>
+    <color name="text_color_def_gray">#8F8989</color>
+    <color name="text_color_def_light">#F5F5F5</color>
+    <color name="line_blue">#6AA2DF</color>
+    <color name="line_gray">#919499</color>
+    <color name="line_blue_dark">#4E7AAA</color>
+
+    <color name="bg_gray">#A7A0A0</color>
+    <color name="white_teeth">#FDFDFD</color>
+    <color name="black_face">#201E1E</color>
+</resources>

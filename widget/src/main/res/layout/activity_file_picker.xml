@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.hzc.widget.picker.file.FilePicker_ViewModel" />
+
+        <import type="com.hzc.widget.picker.file.FilePickerUiParams" />
+
+        <variable
+            name="vmFilePicker"
+            type="FilePicker_ViewModel" />
+
+        <variable
+            name="fpUiParams"
+            type="FilePickerUiParams" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <com.zch.last.view.scale.ScaleImageView
+                android:id="@+id/picker_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:src="@mipmap/icon_back"
+                android:onClick="@{()->vmFilePicker.cancelPick()}"
+                app:scale="1"
+                app:known="height" />
+
+            <TextView
+                android:id="@+id/picker_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="20dp"
+                android:text="@{fpUiParams.currentFile.name}"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textColor="@color/text_color_def_dark"
+                android:textSize="@dimen/text_size_large" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/picker_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layerType="software"
+            android:background="@color/line_blue_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <HorizontalScrollView
+                android:id="@+id/picker_path_hor_scroll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/picker_path_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:ellipsize="start"
+                    android:hint="地址"
+                    android:text="@{fpUiParams.currentFile.absolutePath}"
+                    android:textColor="#464343"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </HorizontalScrollView>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layerType="software"
+                android:background="@color/line_blue" />
+
+            <TextView
+                android:id="@+id/picker_path_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/selector_press_trans_2_dark"
+                android:text="向上"
+                android:onClick="@{()->vmFilePicker.backFolder()}"
+                android:textColor="#254855"
+                android:textSize="23sp"
+                app:scale="1"
+                app:known="height" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layerType="software"
+            android:background="@color/line_blue" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/picker_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/picked_desc"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="请选择"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_color_def_dark"
+                android:textSize="@dimen/text_size_small"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/picker_extra_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="更多"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:background="@drawable/selector_bg_file_picker_extra_btn"
+                android:onClick="@{(view)->vmFilePicker.clickExtra(view)}"/>
+
+            <TextView
+                android:id="@+id/picker_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="选择"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="20sp"
+                android:textColor="@color/text_color_def_light"
+                android:background="@drawable/selector_bg_file_picker_choose_btn"
+                android:onClick="@{()->vmFilePicker.sendResult()}" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

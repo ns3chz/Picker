@@ -1,0 +1,6 @@
+include ':app', ':widget'
+rootProject.name='Picker'
+
+include ':Last'
+project(':Last').projectDir = new File(settingsDir,'../Last')
+include ':Last:last'
