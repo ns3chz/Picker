@@ -106,6 +106,9 @@ public class FilePicker_ViewModel extends BaseViewModel {
             return;
         }
         fpAdapter.notifyFolderChanged();
+        if (mImplFPOperate != null) {
+            mImplFPOperate.setPickedDesc(null);
+        }
     }
 
     public void clickExtra(View view) {

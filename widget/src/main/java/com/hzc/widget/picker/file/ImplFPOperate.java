@@ -11,4 +11,5 @@ public interface ImplFPOperate {
 
     void fileSelected(@NonNull List<ModelChoose<File>> chooseList, @NonNull ModelChoose<File> modelChoose, boolean isChoose);
 
+    void setPickedDesc(String text);
 }

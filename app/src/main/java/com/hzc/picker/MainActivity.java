@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FilePicker.build(MainActivity.this, 1)
-                        .setOpenFile(new File("sdcard/1/"))
+                        .setOpenFile(new File("sdcard/123/"))
                         .setPickFileType(FilePickerUiParams.PickType.FILE)
                         .setSinglePick(new FilePicker.OnSinglePickListener() {
                             @Override
                             public void pick(@NonNull File path) {
                                 tvResult.setText("单选 : \n" + path.getAbsolutePath());
                             }
- 
+
                             @Override
                             public void cancel() {
                                 tvResult.setText("取消选择了");
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        FilePicker.onActivityResult(this, requestCode, resultCode, data);
+        FilePicker.onActivityResult(this, requestCode, resultCode, data);
     }
 
 }

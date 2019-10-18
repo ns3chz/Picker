@@ -142,4 +142,9 @@ public class FilePickerActivity extends BaseMVVMActivity<ActivityFilePickerBindi
             viewDataBinding.pickedDesc.setText("已选择 " + chooseList.size() + "项");
         }
     }
+
+    @Override
+    public void setPickedDesc(String text) {
+        viewDataBinding.pickedDesc.setText(text);
+    }
 }
