@@ -138,6 +138,14 @@ public class FilePicker {
         this.uiParams = new FilePickerUiParams();
     }
 
+    /**
+     * @param layout RecyclerView#Item的布局
+     * @param icon 文件图标{@link android.widget.ImageView}id
+     * @param name 文件名称{@link android.widget.TextView}id
+     * @param desc 文件描述{@link android.widget.TextView}id
+     * @param select 选择状态View{@link android.view.View}id，这里的选中状态的变化通过{@link #setChoiceState(BaseRecyclerAdapter.ChoiceState)}控制
+     * @return
+     */
     public FilePicker setItemFileLayoutRes(@LayoutRes int layout, @IdRes int icon, @IdRes int name,
                                            @IdRes int desc, @IdRes int select) {
         uiParams.setRes_file_item_layout(layout);
@@ -148,6 +156,11 @@ public class FilePicker {
         return this;
     }
 
+    /**
+     * @param file 文件图标
+     * @param folder 文件夹图标
+     * @return
+     */
     public FilePicker setItemFileDrawable(@DrawableRes int file, @DrawableRes int folder) {
         uiParams.setRes_drawable_type_file(file);
         uiParams.setRes_drawable_type_folder(folder);

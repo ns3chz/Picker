@@ -156,6 +156,7 @@ public class FPAdapter extends BaseRecyclerHFAdapter<FPAdapter.Holder, File> {
                 boolean f2isDir = f2.isDirectory();
                 if (f1isDir && !f2isDir) return -1;
                 if (!f1isDir && f2isDir) return 1;
+                //以.开头的文件放到最后
                 boolean conP1 = f1.getName().startsWith(".");
                 boolean conP2 = f2.getName().startsWith(".");
                 if (!conP1 && conP2) return -1;

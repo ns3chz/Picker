@@ -13,7 +13,6 @@ import com.hzc.widget.picker.file.FilePicker;
 import com.hzc.widget.picker.file.FilePickerUiParams;
 
 import java.io.File;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FilePicker.build(MainActivity.this, 1)
 //                        .setOpenFile(new File("sdcard/123/"))
+                        .setItemFileLayoutRes()
+                        .setItemFileDrawable()
+                        .setChoiceState()
                         .setPickFileType(FilePickerUiParams.PickType.FILE)
 //                        .setMultiPick(new FilePicker.OnMultiPickListener() {
 //                            @Override
