@@ -3,7 +3,6 @@
     package="com.hzc.picker">
 
     <application
-        android:name="com.zch.last.core.LastApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

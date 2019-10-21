@@ -1,13 +1,18 @@
 package com.hzc.widget.picker.file;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hzc.widget.R;
@@ -61,7 +66,10 @@ public class FilePicker_ViewModel extends BaseViewModel {
                     fpAdapter.select(position, true);
                 } else {
                     uiParams.setCurrentFile(file);
-                    fpAdapter.notifyFolderChanged();
+                    refreshFolder();
+                    if (mImplFPOperate != null && fpAdapter.getChooseList().size() == 0) {
+                        mImplFPOperate.setPickedDesc(null);
+                    }
                 }
                 return true;
             }
@@ -105,7 +113,7 @@ public class FilePicker_ViewModel extends BaseViewModel {
         if (!uiParams.setCurrentFile(currentFile)) {
             return;
         }
-        fpAdapter.notifyFolderChanged();
+        refreshFolder();
         if (mImplFPOperate != null) {
             mImplFPOperate.setPickedDesc(null);
         }
@@ -116,6 +124,7 @@ public class FilePicker_ViewModel extends BaseViewModel {
             case FILE:
                 break;
             case FOLDER:
+            case FILE_OR_FOLDER:
                 getFolderCreateDialog().show();
                 break;
         }
@@ -127,32 +136,30 @@ public class FilePicker_ViewModel extends BaseViewModel {
     public void sendResult() {
         Intent intent = new Intent();
         switch (uiParams.getPickType()) {
-            case FILE:
+            case FILE_OR_FOLDER:
                 List<ModelChoose<File>> chooseList = fpAdapter.getChooseList();
                 if (chooseList.size() == 0) {
-                    UtilToast.toast("请选择");
+                    intent.putExtra(RESULT_KEY, uiParams.getCurrentFile());
+                    break;
+                }
+            case FILE:
+                chooseList = fpAdapter.getChooseList();
+                if (chooseList.size() == 0) {
+                    Toast.makeText(wrActivity.get(), "请选择文件", Toast.LENGTH_LONG).show();
                     return;
                 }
                 ModelChoose<File> fileModelChoose;
                 switch (uiParams.getChoiceMode()) {
                     case SINGLE:
-                        try {
-                            fileModelChoose = chooseList.get(0);
-                            intent.putExtra(RESULT_KEY, fileModelChoose.getData());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        fileModelChoose = chooseList.get(0);
+                        intent.putExtra(RESULT_KEY, fileModelChoose.getData());
 
                         break;
                     case MULTI:
                         ArrayList<File> pathList = new ArrayList<>();
                         for (int i = 0; i < chooseList.size(); i++) {
-                            try {
-                                fileModelChoose = chooseList.get(i);
-                                pathList.add(fileModelChoose.getData());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            fileModelChoose = chooseList.get(i);
+                            pathList.add(fileModelChoose.getData());
                         }
                         intent.putExtra(RESULT_KEY, pathList);
                         break;
@@ -211,7 +218,7 @@ public class FilePicker_ViewModel extends BaseViewModel {
                                     }
                                     folderCreateDialog.dissmiss();
                                     UtilToast.toast("创建文件夹成功");
-                                    fpAdapter.notifyFolderChanged();
+                                    refreshFolder();
                                     break;
                             }
                         }
@@ -219,6 +226,13 @@ public class FilePicker_ViewModel extends BaseViewModel {
                     .build();
         }
         return folderCreateDialog;
+    }
+
+    private void refreshFolder() {
+        if (PermissionChecker.PERMISSION_GRANTED != PermissionChecker.checkSelfPermission(wrActivity.get(), Manifest.permission_group.STORAGE)) {
+            ActivityCompat.requestPermissions(wrActivity.get(), new String[]{Manifest.permission_group.STORAGE}, 0);
+        }
+        fpAdapter.notifyFolderChanged();
     }
 
     void setFPOperateImpl(ImplFPOperate operate) {

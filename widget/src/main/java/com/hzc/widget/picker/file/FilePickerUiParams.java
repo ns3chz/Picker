@@ -18,7 +18,8 @@ import java.io.Serializable;
 public class FilePickerUiParams extends BaseObservable implements Serializable {
     public enum PickType {
         FILE,
-        FOLDER
+        FOLDER,
+        FILE_OR_FOLDER
     }
 
     @LayoutRes

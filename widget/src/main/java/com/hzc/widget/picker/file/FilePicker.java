@@ -204,9 +204,10 @@ public class FilePicker {
 
     private void check() {
         if (BaseRecyclerAdapter.ChoiceMode.MULTI.equals(uiParams.getChoiceMode())) {
-            if (FilePickerUiParams.PickType.FOLDER.equals(uiParams.getPickType())) {
-                throw new RuntimeException("Can Not Choose Multi Folders");
-            }
+            uiParams.setPickType(FilePickerUiParams.PickType.FILE);
+//            if (FilePickerUiParams.PickType.FOLDER.equals(uiParams.getPickType())) {
+//                throw new RuntimeException("Can Not Choose Multi Folders");
+//            }
         }
     }
 

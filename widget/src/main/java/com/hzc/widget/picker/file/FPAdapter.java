@@ -53,7 +53,8 @@ public class FPAdapter extends BaseRecyclerHFAdapter<FPAdapter.Holder, File> {
         //
         if (holder.desc != null) {
             if (holder.desc instanceof TextView) {
-                if (file.isDirectory() && FilePickerUiParams.PickType.FILE.equals(uiParams.getPickType())) {
+                if (file.isDirectory() && (FilePickerUiParams.PickType.FILE.equals(uiParams.getPickType()) ||
+                        FilePickerUiParams.PickType.FILE_OR_FOLDER.equals(uiParams.getPickType()))) {
                     String[] list = file.list();
                     ((TextView) holder.desc).setText((list == null ? 0 : list.length) + " 项");
                 } else {
@@ -144,6 +145,7 @@ public class FPAdapter extends BaseRecyclerHFAdapter<FPAdapter.Holder, File> {
                 }
                 break;
             case FILE:
+            case FILE_OR_FOLDER:
                 break;
         }
         //排序

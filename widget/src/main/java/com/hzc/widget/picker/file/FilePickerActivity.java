@@ -54,6 +54,11 @@ public class FilePickerActivity extends BaseMVVMActivity<ActivityFilePickerBindi
                 viewDataBinding.pickedDesc.setHint("请选择文件");
                 UtilView.setViewVisibility(viewDataBinding.pickerExtraBtn, View.GONE);
                 break;
+            case FILE_OR_FOLDER:
+                viewDataBinding.pickedDesc.setHint("未选择文件将返回当前文件夹");
+                UtilView.setViewVisibility(viewDataBinding.pickerExtraBtn, View.VISIBLE);
+                viewDataBinding.pickerExtraBtn.setText("创建");
+                break;
             case FOLDER:
                 viewDataBinding.pickedDesc.setText("请选择文件夹");
                 UtilView.setViewVisibility(viewDataBinding.pickerExtraBtn, View.VISIBLE);
