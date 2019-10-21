@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FilePicker.build(MainActivity.this, 1)
 //                        .setOpenFile(new File("sdcard/123/"))
-                        .setItemFileLayoutRes()
-                        .setItemFileDrawable()
-                        .setChoiceState()
                         .setPickFileType(FilePickerUiParams.PickType.FILE)
 //                        .setMultiPick(new FilePicker.OnMultiPickListener() {
 //                            @Override
