@@ -1,17 +1,20 @@
 package com.hzc.widget.picker.file;
 
+import android.Manifest;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hzc.widget.R;
 import com.hzc.widget.databinding.ActivityFilePickerBinding;
 import com.zch.last.activity.BaseMVVMActivity;
+import com.zch.last.utils.UtilPermission;
 import com.zch.last.utils.UtilThread;
 import com.zch.last.utils.UtilView;
 import com.zch.last.view.recycler.model.ModelChoose;
@@ -131,7 +134,20 @@ public class FilePickerActivity extends BaseMVVMActivity<ActivityFilePickerBindi
 
     @Override
     public void initData() {
-
+        //检擦权限
+        boolean hasPermission = UtilPermission.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (!hasPermission) {
+            UtilPermission.request(this, 1, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    new UtilPermission.OnPermissionRequestListener() {
+                        @Override
+                        public void listen(int requestCode, @Nullable String[] requestPermissions,
+                                           @Nullable List<String> grantedPermissions, @Nullable List<String> deniedPermissions) {
+                            if (grantedPermissions != null) {
+                                viewDataBinding.getVmFilePicker().refreshFolder();
+                            }
+                        }
+                    });
+        }
     }
 
     @Override
@@ -151,5 +167,11 @@ public class FilePickerActivity extends BaseMVVMActivity<ActivityFilePickerBindi
     @Override
     public void setPickedDesc(String text) {
         viewDataBinding.pickedDesc.setText(text);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        UtilPermission.listen(this, requestCode, permissions, grantResults);
     }
 }

@@ -40,5 +40,5 @@ dependencies {
     implementation rootProject.ext.rxjava
     implementation rootProject.ext.rxandroid
 //    implementation project(path: ':Last:last')
-    implementation 'com.github.ns3chz:Last:1.0.0'
+    implementation 'com.github.ns3chz:Last:1.0.1'
 }

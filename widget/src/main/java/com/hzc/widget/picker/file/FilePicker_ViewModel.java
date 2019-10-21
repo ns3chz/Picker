@@ -1,6 +1,5 @@
 package com.hzc.widget.picker.file;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.PermissionChecker;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hzc.widget.R;
@@ -228,10 +224,7 @@ public class FilePicker_ViewModel extends BaseViewModel {
         return folderCreateDialog;
     }
 
-    private void refreshFolder() {
-        if (PermissionChecker.PERMISSION_GRANTED != PermissionChecker.checkSelfPermission(wrActivity.get(), Manifest.permission_group.STORAGE)) {
-            ActivityCompat.requestPermissions(wrActivity.get(), new String[]{Manifest.permission_group.STORAGE}, 0);
-        }
+    public void refreshFolder() {
         fpAdapter.notifyFolderChanged();
     }
 
